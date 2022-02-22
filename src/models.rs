@@ -2,7 +2,7 @@ use super::schema::{users, posts, comments};
 use diesel::{Queryable, Insertable};
 use serde::{Serialize, Deserialize};
 
-#[derive(Queryable, Serialize)]
+#[derive(Debug ,Queryable, Serialize, Identifiable)]
 pub struct User {
     pub id: i32,
     pub username: String,
@@ -24,7 +24,8 @@ pub struct LoginUser {
     pub password: String,
 }
 
-#[derive(Debug, Serialize, Queryable, Identifiable)]
+#[derive(Debug, Serialize, Queryable, Identifiable, Associations)]
+#[belongs_to(User, foreign_key="author")]
 pub struct Post {
     pub id: i32,
     pub title: String,
@@ -55,6 +56,7 @@ impl NewPost {
 
 #[derive(Debug, Serialize, Queryable, Identifiable, Associations)]
 #[belongs_to(Post)]
+#[belongs_to(User)]
 pub struct Comment {
     pub id: i32,
     pub comment: String,
