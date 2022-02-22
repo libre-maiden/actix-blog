@@ -5,7 +5,7 @@ pub mod models;
 
 use actix_web::{HttpServer, App, web, HttpResponse, Responder};
 use tera::{Tera, Context};
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize};
 use actix_identity::{Identity, CookieIdentityPolicy, IdentityService};
 
 use diesel::prelude::*;
@@ -13,13 +13,6 @@ use diesel::pg::PgConnection;
 use dotenv::dotenv;
 
 use models::{User, NewUser, LoginUser, Post, NewPost, Comment, NewComment};
-
-
-#[derive(Debug, Deserialize)]
-struct Submission {
-    title: String,
-    link: String,
-}
 
 
 #[derive(Deserialize)]
